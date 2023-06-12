@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .block {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wapper">
+      <div id="table">
+        <div class="block">
+          <p>Name</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
+            cumque architecto dolores ea debitis, ut reprehenderit, beatae
+            labore velit nesciunt vel, ratione quod autem provident minus
+            mollitia soluta blanditiis accusamus.
+          </p>
+        </div>
+      </div>
+
+      <h5>Add new message</h5>
+      <form action="">
+        <label for=""> Your name: </label>
+        <input type="text" id="name" />
+        <label for=""> Your message: </label>
+        <input type="text" id="message" />
+        <input type="button" value="Send" id="btn" />
+      </form>
+    </div>
+
+    <script>
+      let d = document;
+      btn.addEventListener("click", function () {
+        let name = d.createElement("p");
+        let msg = d.createElement("p");
+
+        let block = d.createElement("div");
+        block.className = "block";
+        name.innerText = d.getElementById("name").value;
+        msg.innerText = d.getElementById("message").value;
+
+        let date = new Date();
+
+        name.innerHTML += `  ${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
+        table.appendChild(block);
+        block.append(name, msg);
+      });
+    </script>
+  </body>
+</html>

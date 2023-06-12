@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="form">
+      <form action="">
+        <label for="group"></label>
+        <select id="group" name="select">
+          <option value="1">Group 1</option>
+          <option value="2" selected>Group 2</option>
+          <option value="3">Group 3</option>
+        </select>
+
+        <label for="lesson"></label>
+        <select id="lesson" name="select">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+        </select>
+
+        <input id="select" type="button" value="Select" />
+        <hr />
+      </form>
+    </div>
+  </body>
+
+  <script>
+    let d = document;
+    let group1 = { alina: 0, dina: 0, kristina: 0 };
+    let group2 = { madi: 0, sania: 0, sobaka: 0 };
+    let group3 = { medina: 0, aigerim: 0, sasha: 0, tim: 0 };
+
+    //    let allGroups = {
+    //         group1 : {alina: 0, dina: 0, kristina:0},
+    //         group2 : {alina: 0, dina: 0, kristina:0},
+    //         group3 : {alina: 0, dina: 0, kristina:0, karina: 0},
+    //    }
+
+    //создаем тег таблицу, в нем будем отображать студентов
+    let table = d.createElement("table");
+    let subject = d.createElement("h5");
+
+    d.body.appendChild(subject);
+    // добавляем таблицу на страницу
+    d.body.appendChild(table);
+
+    //нажатие на кнопку при выборе группы и пары
+    select.addEventListener("click", function () {
+      table.innerHTML = "";
+      //вызываем метод в соответсвии с группой
+
+      let currentSubject = lesson.value;
+      switch (currentSubject) {
+        case "1":
+          subject.innerText = "C++";
+          break;
+        case "2":
+          subject.innerText = "Python";
+          break;
+        case "3":
+          subject.innerText = "JS";
+          break;
+      }
+
+      let currentGroup = group.value;
+      switch (currentGroup) {
+        case "1":
+          checkStudents(group1);
+          break;
+        case "2":
+          checkStudents(group2);
+          break;
+        case "3":
+          checkStudents(group3);
+          break;
+      }
+    });
+
+    function checkStudents(group) {
+      let title = ["name", "isPresent"];
+
+      //выводим названия строк таблицы
+      let tr = d.createElement("tr");
+      table.appendChild(tr);
+      for (let i = 0; i < title.length; i++) {
+        let name = d.createElement("td");
+        name.innerHTML = title[i];
+        tr.appendChild(name);
+      }
+
+      //с помощью цикла проходимся по массиву группы
+      for (let i = 0; i < Object.keys(group).length; i++) {
+        let tr = d.createElement("tr");
+        table.appendChild(tr);
+
+        //выводим имя
+        let name = d.createElement("td");
+        name.innerHTML = Object.keys(group)[i];
+        tr.appendChild(name);
+
+        //выводим checkbox
+        let x = d.createElement("INPUT");
+        x.setAttribute("type", "checkbox");
+        x.className = "chb";
+        tr.appendChild(x);
+      }
+
+      //в конце добавляем кнопку SAVE
+      let save = d.createElement("INPUT");
+      save.setAttribute("type", "button");
+      save.setAttribute("value", "Save");
+      save.id = "save";
+      save.classList.add("save");
+      table.appendChild(save);
+
+      save.addEventListener("click", function () {
+        let chb = d.querySelectorAll(".chb");
+
+        for (let i = 0; i < chb.length; i++) {
+          let p = d.createElement("p");
+          p.style.margin = 0 + "px";
+          if (chb[i].checked) {
+            p.textContent = "present";
+          } else {
+            p.textContent = " ";
+          }
+
+          chb[i].replaceWith(p);
+        }
+
+        save.style.display = "none";
+      });
+    }
+
+    //--------------------------------------------------------------------------------------------
+    //вот эта шляпа для привязки событий на элементы, который изначально не было на странице
+    /*function on(node, event, className, cb) {
+	node.addEventListener(event, (e) => {
+  	if (!e.target.classList.contains(className)) {
+    	return false
+    }
+    cb(e)
+
+
+  })
+}
+
+on(table, 'click', 'save', e => {
+  
+    let chb = d.querySelectorAll('.chb');
+
+    for(let i = 0; i < chb.length; i++){
+        let p = d.createElement('p')
+        p.style.margin = 0 + 'px';
+        if(chb[i].checked){
+            p.textContent = 'present';
+            
+        }
+        else{ p.textContent = ' ';}
+
+        chb[i].replaceWith(p) 
+
+    }
+    e.target.style.display = 'none';
+
+})*/
+    //--------------------------------------------------------------------------------------------
+  </script>
+</html>

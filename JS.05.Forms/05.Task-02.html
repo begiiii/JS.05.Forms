@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      form {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wapper">
+      <!-- <div id="table">
+            <div class="block">
+                <>Name</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum cumque architecto dolores ea debitis, ut reprehenderit, beatae labore velit nesciunt vel, ratione quod autem provident minus mollitia soluta blanditiis accusamus.</p>
+            </div>
+        </div> -->
+
+      <form id="form">
+        <label for="" id="question"></label>
+        <br /><br />
+        <input type="radio" id="first" name="test" />
+        <label for="fisrt" id="firstAnswer"></label>
+        <br /><br />
+        <input type="radio" id="second" name="test" />
+        <label for="second" id="secondAnswer"></label>
+        <br /><br />
+        <input type="button" value="Next" id="next" class="btn" />
+        <input type="button" value="Finish" id="finish" />
+      </form>
+
+      <button id="start">Start</button>
+    </div>
+
+    <script>
+      start.addEventListener("click", function () {
+        start.style.display = "none";
+        form.style.display = "contents";
+        displayForm();
+      });
+
+      console.log();
+      let d = document;
+
+      let firstAnswer = d.getElementById("firstAnswer");
+      let secondAnswer = d.getElementById("secondAnswer");
+      let next = d.getElementById("next");
+
+      let question = d.getElementById("question");
+
+      let questions = [
+        "Hello",
+        "Pneumonoultramicroscopicsilicovolcanokoniosis",
+        "Hippopotomonstrosesquipedaliophobia",
+        "Supercalifragilisticexpialidocious",
+        "Pseudopseudohypoparathyroidism",
+        "Incomprehensibilities",
+      ];
+
+      let count = 0;
+      let score = 0;
+
+      d.getElementById("next").addEventListener("click", function () {
+        checkAnswer();
+        displayForm();
+      });
+
+      //displayForm() - отображает форму с вопросами и ответами
+      function displayForm() {
+        question.innerHTML = `${
+          count + 1
+        }) How many letters are there in the word "${questions[count]}"? `;
+
+        //массив содержит правильный и рандомный ответы, которые мы мешаем с помощью сортировки
+        let shuffleOptions = [
+          questions[count].length,
+          getRandomOption(
+            questions[count].length - 2,
+            questions[count].length + 2,
+            questions[count].length
+          ),
+        ].sort();
+
+        //присваиваем значения элементам из массива
+        firstAnswer.innerHTML = shuffleOptions[0];
+        secondAnswer.innerHTML = shuffleOptions[1];
+
+        //условие, при которых не отображаем кнопку
+        if (count >= questions.length - 1) {
+          next.style.display = "none";
+        }
+        //console.log(count + " = " + questions.length) // проверка
+      }
+
+      function checkAnswer() {
+        if (
+          (first.checked == true &&
+            +firstAnswer.innerHTML == questions[count].length) ||
+          (second.checked == true &&
+            +secondAnswer.innerHTML == questions[count].length)
+        ) {
+          score++;
+          console.log("+" + score);
+        }
+        count++;
+
+        //  console.log(count + " : " + score) // проверка
+      }
+
+      finish.addEventListener("click", function () {
+        checkAnswer();
+        form.style.display = "none";
+        let result = d.createElement("p");
+        result.innerText = `Result: ${score} correct answers to ${count} `;
+        d.body.appendChild(result);
+      });
+
+      function getRandomOption(min, max, another) {
+        randNum = parseInt(Math.random() * (max - min) + min);
+        //если значение рандомного числа == значению правильного ответа, то меняем его(просто к его значению +1)
+        return randNum == another ? ++randNum : randNum;
+      }
+    </script>
+  </body>
+</html>

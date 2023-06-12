@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #items{
+            width: 70%;
+            height: 500px;
+        }
+        #block{
+            height: 500px;
+            width: 33.3%;
+            margin: 0 20px;
+            border: 1px solid black;
+        }
+        form{
+            width:30%
+        }
+        #main{
+            display: flex;
+        }
+        #items{
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        #img1{
+            background: url(https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSvhM_AaivQtWvcl0KrfrK9E9g4VNb6ENYlX5hgy9L8ryWMGzNY);
+        }
+        #img3{
+            background: url(https://img3.labirint.ru/rc/c810db71e016d6c5d274e3f15d336fc0/363x561q80/books52/512943/cover.jpg?1563865421);
+        }
+        #img1,#img2,#img3{
+            background-size: cover;
+            background-repeat: no-repeat;            
+            width: 180px;
+            height: 270px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="main">
+        <div id="items">
+            <div id="block">
+                <div id="img1"></div>
+                <h1 class="title">Learning JavaScript Design Patterns</h1>
+                <p id="author">Эдди Османи</p>
+                <p id="cost">44.99$</p>
+                <input type="button" value="Select" class="select">
+            </div>
+        
+            <div id="block">
+                <div id="img2"></div>
+                <h1 class="title">You Don't Know JS: Scope & Closures</h1>
+                <p id="author">Кайл Симпсон</p>
+                <p id="cost">23.80$</p>
+                <input type="button" value="Select" class="select">
+            </div>
+        
+            <div id="block">
+                <div id="img3"></div>
+                <h1 class="title">Секреты JavaScript ниндзя</h1>
+                <p id="author"></p>
+                <p id="cost">32.99$</p>
+                <input type="button" value="Select"class="select">
+            </div>
+        </div>
+
+            <form action="" id="form">
+                <label for="book">Book:</label>
+                <input type="text" id="book"><br>
+        
+                <label for="quantity">Quantity:</label>
+                <input type="text" id="quantity"><br>
+        
+                <label for="name">Name:</label>
+                <input type="text" id="name"><br>
+        
+                <label for="address">Devlivery address:</label>
+                <textarea name="" id="address" cols="30" rows="10"></textarea><br>
+        
+                <label for="date">Date:</label>
+                <input type="text" id="date"><br>
+        
+        
+                <label for="comment">Comment:</label>
+                <textarea name="" id="comment" cols="30" rows="10"></textarea><br>
+        
+                <input type="button" value="Buy" id="buy">
+        
+            </form>
+
+        
+
+    <script>
+        let select = document.querySelectorAll('.select');
+        let title = document.querySelectorAll('.title');
+    
+        let name = document.getElementById('name');
+        let address = document.getElementById('address');
+        let date = document.getElementById('date');
+    
+    
+    
+    
+        for(let i =0 ; i < select.length; i++){
+            select[i].addEventListener('click', function(){
+                book.value = title[i].innerHTML;
+            })
+            console.log("dsbz")
+        }
+    
+        document.getElementById('buy').addEventListener('click', function(){
+            
+            
+            document.getElementById('form').style.display = 'none';
+             document.getElementById('main').style.display = 'none';
+    
+            let div1 = document.createElement('div');
+            div1.innerText = `${name.value}, thanks for the order!\n\n
+            Book "${book.value} will be delivered on ${date.value} to ${address.value}"`;
+            document.body.append(div1);
+    
+    
+            console.log(`${name.value}, thanks for the order!\n\n
+            Book "${book.value} will be delivered on ${date.value} to ${address.value}"`)
+        })
+    
+    </script>
+</body>
+</html>

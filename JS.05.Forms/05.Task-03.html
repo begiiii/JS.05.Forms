@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #output {
+        width: 400px;
+        height: 200px;
+        border-radius: 3px;
+        border: 1px solid black;
+      }
+      /* #btn{
+            display: none;
+        } */
+    </style>
+  </head>
+  <body>
+    <div id="types">
+      <input type="checkbox" id="bold" name="option" />
+      <label for="bold">bold</label>
+
+      <input type="checkbox" id="underline" name="option" />
+      <label for="underline">underline</label>
+
+      <input type="checkbox" id="italics" name="option" />
+      <label for="italics">italics</label>
+
+      <input type="radio" id="left" name="optionRadio" />
+      <label for="left">left</label>
+
+      <input type="radio" id="right" name="optionRadio" />
+      <label for="right">right</label>
+
+      <input type="radio" id="justify" name="optionRadio" />
+      <label for="justify">justify</label>
+    </div>
+
+    <textarea name="" id="textarea" cols="50" rows="10"></textarea>
+    <input id="btn" type="button" value="Show text" />
+
+    <br />
+    <h2>Result:</h2>
+    <div id="output">
+      <p id="p"></p>
+    </div>
+    <script>
+      let d = document;
+
+      let btn = d.getElementById("btn");
+      let textarea = d.getElementById("textarea");
+      let p = d.getElementById("p");
+
+      btn.addEventListener("click", function () {
+        p.style.fontWeight = "normal";
+        p.style.fontStyle = "normal";
+        p.style.textDecoration = "none";
+
+        p.innerHTML = textarea.value;
+        console.log("blur");
+        // if(textarea.value == 'r' ){
+        //     btn.style.display = 'contents';
+        // // console.log('r')
+        // }
+
+        if (bold.checked) p.style.fontWeight = "bold";
+        if (italics.checked) p.style.fontStyle = "italic";
+        if (underline.checked) p.style.textDecoration = "underline";
+
+        if (left.checked) p.style.textAlign = "left";
+        else if (right.checked) p.style.textAlign = "right";
+        else if (justify.checked) p.style.textAlign = "justify";
+      });
+    </script>
+  </body>
+</html>

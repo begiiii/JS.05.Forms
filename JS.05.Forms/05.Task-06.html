@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #ok {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <label for="direction">Direction</label>
+      <select name="" id="direction">
+        <option value="1">Astana - Almaty</option>
+        <option value="2">Astana - Bishkek</option>
+        <option value="3">Astana - Shimkent</option>
+        <option value="4">Astana - Moscow</option>
+        <option value="5">Astana - Tashkent</option>
+      </select>
+
+      <label for="date">Date</label>
+      <input type="date" id="date" value="2018-07-22" />
+
+      <input type="button" value="Search" id="search" />
+      <input type="button" value="Ok" id="ok" />
+    </form>
+    <table id="flights">
+      <td>Direction</td>
+      <td>Date</td>
+      <td>Seat</td>
+    </table>
+
+    <script>
+      const d = document;
+      const search_btn = d.getElementById("search");
+      const ok_btn = d.getElementById("ok");
+      const direction = d.getElementById("direction");
+      const date = d.getElementById("date");
+      const flights = d.getElementById("flights");
+
+      let obj = {}; //в объекте будем дату хранить как ключ, а значение в виде массива забронированных мест
+      let size = 28;
+      let userDate;
+
+      //таблица хранит чекбоксы
+      let table = d.createElement("table");
+      d.body.appendChild(table);
+
+      search_btn.addEventListener("click", function () {
+        func();
+        search_btn.style.display = "none";
+        ok_btn.style.display = "block";
+      });
+
+      ok_btn.addEventListener("click", function () {
+        //массив чекбоксов
+        let checkboxes = d.querySelectorAll(".chbox");
+
+        //в массиве будем хранить текущие отмеченные чекбоксы,
+        //чтобы отображать на таблице
+        let seats = [];
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          //если чекбокс отмечен,
+          if (checkboxes[i].checked) {
+            seats.push(checkboxes[i].value);
+          }
+        }
+
+        //отмеченные чекбоксы передаем в объект
+        for (let i = 0; i < seats.length; i++) {
+          obj[`${userDate}`].push(seats[i]);
+        }
+
+        //очищаем таблицу с чекбосами
+        table.innerHTML = "";
+
+        //добавляем забронированные места в таблицу
+        for (let i = 0; i < seats.length; i++) {
+          let flightRow = d.createElement("tr");
+          let flightDirection = d.createElement("td");
+
+          flightDirection.innerText =
+            direction.options[direction.selectedIndex].innerText;
+          let flightDate = d.createElement("td");
+          flightDate.innerHTML = date.value;
+          let flightSeat = d.createElement("td");
+          flightSeat.innerText = seats[i];
+          flightRow.append(flightDirection, flightDate, flightSeat);
+
+          flights.appendChild(flightRow);
+        }
+
+        ok_btn.style.display = "none";
+        search_btn.style.display = "block";
+      });
+
+      function func() {
+        {
+          table.innerHTML = ""; //очищаем таблицу
+
+          //добавляем два ряда для чекбоксов
+          let tr1 = d.createElement("tr");
+          tr1.id = "row1";
+          table.appendChild(tr1);
+          let tr2 = d.createElement("tr");
+          tr2.id = "row2";
+          table.appendChild(tr2);
+
+          userDate = date.value; // выбранная дата пользователем
+
+          // если мы еще не работали с выбранной юзером датой
+          if (!Object.keys(obj).includes(userDate)) {
+            // создаем ключ, имя которого будет значение даты
+            obj[`${userDate}`] = [];
+          }
+
+          for (let i = 0; i < 28; i++) {
+            //если номер чекбокса до этого был выбран, то пропускаем
+            if (obj[`${userDate}`].includes(String(i + 1))) {
+              continue;
+            }
+            //иначе добавляем чекбокс и номер(label)
+            let td = d.createElement("td");
+            let checkbox = d.createElement("INPUT");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.id = "seat";
+            checkbox.setAttribute("name", "chbox");
+            checkbox.setAttribute("value", `${i + 1}`);
+
+            checkbox.className = "chbox";
+            let num = d.createElement("label");
+            num.innerText = i + 1;
+            num.setAttribute("for", "seat");
+
+            //распределяем чекбоксы по рядам
+            if (i < size / 2) {
+              tr1.appendChild(td);
+            } else {
+              tr2.appendChild(td);
+            }
+            td.append(num, checkbox);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
